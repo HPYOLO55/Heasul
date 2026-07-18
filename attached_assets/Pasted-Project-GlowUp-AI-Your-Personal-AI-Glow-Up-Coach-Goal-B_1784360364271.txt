@@ -1,0 +1,451 @@
+Project: GlowUp AI – Your Personal AI Glow-Up Coach
+
+Goal
+
+Build a modern, premium Android-first web app called GlowUp AI. The app helps users improve their appearance and confidence using AI-powered image analysis and personalized daily guidance.
+
+The application must be fully responsive, production-ready, and optimized for mobile devices.
+
+---
+
+Design Requirements
+
+Create a luxury, minimal UI.
+
+Theme:
+
+- Background: Black (#0D0D0D)
+- Cards: #171717
+- Primary Accent: Gold (#F5C542)
+- Secondary Accent: White
+- Border Radius: 20px
+- Premium animations
+- Glassmorphism cards
+- Smooth page transitions
+- Modern typography
+- Fast loading
+
+---
+
+Authentication
+
+Users can:
+
+- Sign Up
+- Login
+- Forgot Password
+- Google Login (optional)
+
+Store:
+
+- Name
+- Email
+- Password
+- Age
+- Gender
+- Height
+- Weight
+
+---
+
+Dashboard
+
+Show:
+
+"Good Morning, [Name]"
+
+Display:
+
+- Today's Glow Score
+- Daily Mission
+- Current Streak
+- Skin Progress
+- Water Goal
+- Sleep Goal
+- Weekly Progress
+
+Bottom Navigation:
+
+Home
+
+Camera
+
+Progress
+
+Routine
+
+Profile
+
+---
+
+Camera Analysis
+
+Allow user to:
+
+Take selfie
+
+OR
+
+Upload image
+
+Compress image before upload.
+
+Send image to Gemini Vision API.
+
+Prompt Gemini to analyze:
+
+- Skin condition
+- Acne visibility
+- Dark circles
+- Oiliness
+- Dryness
+- Facial symmetry
+- Hairstyle suitability
+- Beard suitability (if applicable)
+- Smile
+- Posture
+- Confidence impression
+- Clothing style
+- Grooming suggestions
+
+Return structured JSON.
+
+---
+
+AI Report
+
+Display beautiful cards.
+
+Sections:
+
+Skin
+
+Hair
+
+Eyes
+
+Smile
+
+Face Shape
+
+Posture
+
+Outfit
+
+Lifestyle
+
+Overall Glow Score
+
+Each card includes:
+
+Current condition
+
+Improvement tips
+
+Estimated improvement time
+
+Difficulty
+
+Priority
+
+---
+
+Daily Glow Routine
+
+Generate morning routine.
+
+Generate evening routine.
+
+Generate weekly routine.
+
+Example:
+
+Morning
+
+Drink water
+
+Cleanser
+
+Vitamin C
+
+Moisturizer
+
+SPF
+
+Night
+
+Cleanser
+
+Retinol (if appropriate)
+
+Moisturizer
+
+Sleep 8 hours
+
+---
+
+Progress Tracker
+
+Allow users to save photos.
+
+Timeline:
+
+Day 1
+
+Day 7
+
+Day 30
+
+Day 90
+
+Show previous analyses.
+
+Display charts for:
+
+Glow Score
+
+Water intake
+
+Sleep
+
+Streak
+
+---
+
+Daily Missions
+
+Generate 5 AI missions.
+
+Examples:
+
+Drink 3L water
+
+Walk 30 min
+
+Sleep before 11 PM
+
+Use sunscreen
+
+Avoid sugary drinks
+
+Users receive XP.
+
+---
+
+XP System
+
+Level system.
+
+Example:
+
+Level 1
+
+0 XP
+
+Level 2
+
+500 XP
+
+Level 3
+
+1500 XP
+
+Unlock badges.
+
+---
+
+Achievements
+
+Examples:
+
+7-day streak
+
+30-day streak
+
+100 XP
+
+1000 XP
+
+Transformation Started
+
+Consistency Master
+
+---
+
+Notifications
+
+Daily reminder.
+
+Drink water reminder.
+
+Skin routine reminder.
+
+Sleep reminder.
+
+---
+
+Settings
+
+Dark mode
+
+Notification toggle
+
+Privacy
+
+Delete account
+
+Logout
+
+---
+
+Profile
+
+Display:
+
+Photo
+
+Glow Score
+
+Current Level
+
+XP
+
+Achievements
+
+Progress Timeline
+
+---
+
+Backend
+
+Use:
+
+Node.js
+
+Express
+
+MongoDB
+
+JWT Authentication
+
+Image Upload API
+
+Gemini Vision API Integration
+
+REST API
+
+Environment variables
+
+Password hashing
+
+Validation
+
+Rate limiting
+
+Secure authentication
+
+---
+
+Database Collections
+
+Users
+
+Analyses
+
+ProgressPhotos
+
+DailyMissions
+
+XP
+
+Achievements
+
+Notifications
+
+---
+
+Gemini Vision Prompt
+
+Analyze this face and return ONLY valid JSON.
+
+Include:
+
+overall_glow_score
+
+skin_analysis
+
+hair_analysis
+
+eyes_analysis
+
+smile_analysis
+
+face_shape
+
+posture
+
+style_score
+
+confidence_score
+
+top_strengths
+
+top_weaknesses
+
+daily_routine
+
+weekly_routine
+
+recommended_habits
+
+priority_improvements
+
+Do not diagnose medical conditions. Provide grooming, skincare, hairstyle, style, posture, and wellness guidance only.
+
+---
+
+Performance
+
+Lazy loading
+
+Image compression
+
+Caching
+
+Fast API responses
+
+Optimized mobile experience
+
+---
+
+Deliverables
+
+Generate:
+
+Complete frontend
+
+Complete backend
+
+Database models
+
+Authentication
+
+API routes
+
+Gemini integration
+
+Responsive UI
+
+Modern animations
+
+Error handling
+
+Loading states
+
+Reusable components
+
+Production-ready folder structure
+
+README with setup instructions
+
+No placeholder code. Produce complete, working, clean, modular code that can be run after adding environment variables.
