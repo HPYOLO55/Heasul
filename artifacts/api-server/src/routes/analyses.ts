@@ -4,7 +4,7 @@ import { db, analysesTable, achievementsTable } from "@workspace/db";
 import { CreateAnalysisBody } from "@workspace/api-zod";
 import { requireAuth, AuthenticatedRequest } from "../middlewares/requireAuth";
 import { analyzeImageWithNvidia, computeGlowScore } from "../lib/nvidia";
-import { awardXp, updateStreak, checkAndUnlockAchievements } from "../lib/xp";
+import { awardXp, updateStreak } from "../lib/xp";
 import { Request, Response } from "express";
 
 const router = Router();
@@ -43,16 +43,17 @@ router.post("/analyses", requireAuth, async (req: Request, res: Response): Promi
 
   let results: Record<string, unknown>;
   try {
-    results = await analyzeImageWithGemini(parsed.data.photoDataUrl);
+    results = await analyzeImageWithNvidia(parsed.data.photoDataUrl);
   } catch (err) {
     const message = err instanceof Error ? err.message : "Analysis failed";
+    req.log.error({ err, message }, "analyzeImage failed");
     res.status(503).json({ error: message });
     return;
   }
 
   const glowScore = computeGlowScore(results);
 
-  // Store thumbnail (first 100KB of the data URL, else null)
+  // Store thumbnail only if small enough to fit in DB comfortably
   const photoUrl = parsed.data.photoDataUrl.length < 100000
     ? parsed.data.photoDataUrl
     : null;
@@ -67,7 +68,7 @@ router.post("/analyses", requireAuth, async (req: Request, res: Response): Promi
     })
     .returning();
 
-  // Award XP and check achievements
+  // Award XP and update streak
   await awardXp(userId, 100);
   await updateStreak(userId);
 
