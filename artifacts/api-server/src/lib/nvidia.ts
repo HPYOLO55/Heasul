@@ -2,7 +2,7 @@ import { logger } from "./logger";
 
 const NVIDIA_API_KEY = process.env.NVIDIA_API_KEY;
 const NVIDIA_BASE_URL = "https://integrate.api.nvidia.com/v1";
-const NVIDIA_VISION_MODEL = "nvidia/llama-3.2-11b-vision-instruct";
+const NVIDIA_VISION_MODEL = "nvidia/nemotron-nano-12b-v2-vl";
 
 const ANALYSIS_PROMPT = `You are a professional beauty and wellness coach. Analyze this photo and return ONLY valid JSON — no markdown, no explanation, just the raw JSON object.
 
