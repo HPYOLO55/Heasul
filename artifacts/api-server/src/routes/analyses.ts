@@ -3,7 +3,7 @@ import { eq, desc } from "drizzle-orm";
 import { db, analysesTable, achievementsTable } from "@workspace/db";
 import { CreateAnalysisBody } from "@workspace/api-zod";
 import { requireAuth, AuthenticatedRequest } from "../middlewares/requireAuth";
-import { analyzeImageWithGemini, computeGlowScore } from "../lib/gemini";
+import { analyzeImageWithNvidia, computeGlowScore } from "../lib/nvidia";
 import { awardXp, updateStreak, checkAndUnlockAchievements } from "../lib/xp";
 import { Request, Response } from "express";
 
