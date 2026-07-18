@@ -3,20 +3,33 @@ info:
   # Do not change the title, if the title changes, the import paths will be broken
   title: Api
   version: 0.1.0
-  description: API specification
+  description: GlowUp AI API specification
 servers:
   - url: /api
     description: Base API path
 tags:
   - name: health
     description: Health operations
+  - name: users
+    description: User profile operations
+  - name: dashboard
+    description: Dashboard summary
+  - name: analyses
+    description: AI glow-up analysis
+  - name: missions
+    description: Daily missions
+  - name: progress
+    description: Progress tracking
+  - name: achievements
+    description: Achievements and XP
+  - name: dailyLogs
+    description: Daily health logs (water, sleep)
 paths:
   /healthz:
     get:
       operationId: healthCheck
       tags: [health]
       summary: Health check
-      description: Returns server health status
       responses:
         "200":
           description: Healthy
@@ -24,6 +37,268 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+
+  /users/me:
+    get:
+      operationId: getMe
+      tags: [users]
+      summary: Get current user profile
+      responses:
+        "200":
+          description: User profile
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserProfile"
+        "401":
+          description: Unauthorized
+    put:
+      operationId: updateMe
+      tags: [users]
+      summary: Update current user profile
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserProfileInput"
+      responses:
+        "200":
+          description: Updated user profile
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserProfile"
+        "401":
+          description: Unauthorized
+
+  /dashboard:
+    get:
+      operationId: getDashboard
+      tags: [dashboard]
+      summary: Get dashboard summary
+      responses:
+        "200":
+          description: Dashboard data
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DashboardSummary"
+        "401":
+          description: Unauthorized
+
+  /analyses:
+    get:
+      operationId: listAnalyses
+      tags: [analyses]
+      summary: List user analyses
+      responses:
+        "200":
+          description: List of analyses
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Analysis"
+        "401":
+          description: Unauthorized
+    post:
+      operationId: createAnalysis
+      tags: [analyses]
+      summary: Submit a photo for AI analysis
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AnalysisInput"
+      responses:
+        "201":
+          description: Analysis result
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Analysis"
+        "401":
+          description: Unauthorized
+
+  /analyses/{id}:
+    get:
+      operationId: getAnalysis
+      tags: [analyses]
+      summary: Get a single analysis
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Analysis
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Analysis"
+        "404":
+          description: Not found
+
+  /missions/today:
+    get:
+      operationId: getTodayMissions
+      tags: [missions]
+      summary: Get today's missions
+      responses:
+        "200":
+          description: Today's missions
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Mission"
+        "401":
+          description: Unauthorized
+
+  /missions/{id}/complete:
+    post:
+      operationId: completeMission
+      tags: [missions]
+      summary: Mark a mission as complete
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Updated mission
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Mission"
+        "404":
+          description: Not found
+
+  /progress:
+    get:
+      operationId: getProgress
+      tags: [progress]
+      summary: Get progress chart data and history
+      responses:
+        "200":
+          description: Progress data
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProgressData"
+        "401":
+          description: Unauthorized
+
+  /progress/photos:
+    get:
+      operationId: listProgressPhotos
+      tags: [progress]
+      summary: List progress photos
+      responses:
+        "200":
+          description: Progress photos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ProgressPhoto"
+        "401":
+          description: Unauthorized
+    post:
+      operationId: createProgressPhoto
+      tags: [progress]
+      summary: Upload a progress photo
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ProgressPhotoInput"
+      responses:
+        "201":
+          description: Created progress photo
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProgressPhoto"
+        "401":
+          description: Unauthorized
+
+  /achievements:
+    get:
+      operationId: listAchievements
+      tags: [achievements]
+      summary: List user achievements
+      responses:
+        "200":
+          description: Achievements
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AchievementsResponse"
+        "401":
+          description: Unauthorized
+
+  /daily-logs/today:
+    get:
+      operationId: getTodayLog
+      tags: [dailyLogs]
+      summary: Get today's health log
+      responses:
+        "200":
+          description: Today's log
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DailyLog"
+        "401":
+          description: Unauthorized
+    put:
+      operationId: upsertTodayLog
+      tags: [dailyLogs]
+      summary: Update today's health log
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DailyLogInput"
+      responses:
+        "200":
+          description: Updated log
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DailyLog"
+        "401":
+          description: Unauthorized
+
+  /daily-logs:
+    get:
+      operationId: listDailyLogs
+      tags: [dailyLogs]
+      summary: Get recent daily logs
+      responses:
+        "200":
+          description: Daily logs
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/DailyLog"
+        "401":
+          description: Unauthorized
+
 components:
   schemas:
     HealthStatus:
@@ -34,3 +309,369 @@ components:
       required:
         - status
 
+    UserProfile:
+      type: object
+      properties:
+        id:
+          type: integer
+        clerkId:
+          type: string
+        name:
+          type: ["string", "null"]
+        age:
+          type: ["integer", "null"]
+        gender:
+          type: ["string", "null"]
+        height:
+          type: ["number", "null"]
+        weight:
+          type: ["number", "null"]
+        profilePhotoUrl:
+          type: ["string", "null"]
+        totalXp:
+          type: integer
+        level:
+          type: integer
+        streak:
+          type: integer
+        lastActiveDate:
+          type: ["string", "null"]
+        createdAt:
+          type: string
+      required:
+        - id
+        - clerkId
+        - totalXp
+        - level
+        - streak
+        - createdAt
+
+    UserProfileInput:
+      type: object
+      properties:
+        name:
+          type: string
+        age:
+          type: integer
+        gender:
+          type: string
+        height:
+          type: number
+        weight:
+          type: number
+        profilePhotoUrl:
+          type: string
+
+    DashboardSummary:
+      type: object
+      properties:
+        user:
+          $ref: "#/components/schemas/UserProfile"
+        glowScore:
+          type: ["number", "null"]
+        streak:
+          type: integer
+        totalXp:
+          type: integer
+        level:
+          type: integer
+        completedMissionsToday:
+          type: integer
+        totalMissionsToday:
+          type: integer
+        waterMlToday:
+          type: ["number", "null"]
+        sleepHoursLast:
+          type: ["number", "null"]
+        recentAnalysis:
+          $ref: "#/components/schemas/Analysis"
+          nullable: true
+      required:
+        - user
+        - streak
+        - totalXp
+        - level
+        - completedMissionsToday
+        - totalMissionsToday
+
+    AnalysisCategoryResult:
+      type: object
+      properties:
+        condition:
+          type: string
+        tips:
+          type: string
+        estimated_time:
+          type: string
+        difficulty:
+          type: string
+        priority:
+          type: string
+        score:
+          type: ["number", "null"]
+
+    AnalysisResults:
+      type: object
+      description: Structured JSON results from Gemini vision analysis
+      properties:
+        overall_glow_score:
+          type: number
+        skin_analysis:
+          $ref: "#/components/schemas/AnalysisCategoryResult"
+        hair_analysis:
+          $ref: "#/components/schemas/AnalysisCategoryResult"
+        eyes_analysis:
+          $ref: "#/components/schemas/AnalysisCategoryResult"
+        smile_analysis:
+          $ref: "#/components/schemas/AnalysisCategoryResult"
+        face_shape:
+          $ref: "#/components/schemas/AnalysisCategoryResult"
+        posture:
+          $ref: "#/components/schemas/AnalysisCategoryResult"
+        outfit:
+          $ref: "#/components/schemas/AnalysisCategoryResult"
+        lifestyle:
+          $ref: "#/components/schemas/AnalysisCategoryResult"
+        style_score:
+          type: ["number", "null"]
+        confidence_score:
+          type: ["number", "null"]
+        top_strengths:
+          type: array
+          items:
+            type: string
+        top_weaknesses:
+          type: array
+          items:
+            type: string
+        morning_routine:
+          type: array
+          items:
+            type: string
+        evening_routine:
+          type: array
+          items:
+            type: string
+        weekly_routine:
+          type: array
+          items:
+            type: string
+        recommended_habits:
+          type: array
+          items:
+            type: string
+        priority_improvements:
+          type: array
+          items:
+            type: string
+
+    Analysis:
+      type: object
+      properties:
+        id:
+          type: integer
+        userId:
+          type: integer
+        photoUrl:
+          type: ["string", "null"]
+        results:
+          $ref: "#/components/schemas/AnalysisResults"
+          nullable: true
+        glowScore:
+          type: ["number", "null"]
+        createdAt:
+          type: string
+      required:
+        - id
+        - userId
+        - createdAt
+
+    AnalysisInput:
+      type: object
+      properties:
+        photoDataUrl:
+          type: string
+          description: Base64 data URL of the image
+      required:
+        - photoDataUrl
+
+    Mission:
+      type: object
+      properties:
+        id:
+          type: integer
+        userId:
+          type: integer
+        missionText:
+          type: string
+        missionType:
+          type: string
+        xpReward:
+          type: integer
+        date:
+          type: string
+        completed:
+          type: boolean
+        completedAt:
+          type: ["string", "null"]
+      required:
+        - id
+        - userId
+        - missionText
+        - missionType
+        - xpReward
+        - date
+        - completed
+
+    ProgressData:
+      type: object
+      properties:
+        glowScoreHistory:
+          type: array
+          items:
+            type: object
+            properties:
+              date:
+                type: string
+              score:
+                type: number
+            required: [date, score]
+        waterHistory:
+          type: array
+          items:
+            type: object
+            properties:
+              date:
+                type: string
+              waterMl:
+                type: number
+            required: [date, waterMl]
+        sleepHistory:
+          type: array
+          items:
+            type: object
+            properties:
+              date:
+                type: string
+              sleepHours:
+                type: number
+            required: [date, sleepHours]
+        streakHistory:
+          type: array
+          items:
+            type: object
+            properties:
+              date:
+                type: string
+              completed:
+                type: boolean
+            required: [date, completed]
+      required:
+        - glowScoreHistory
+        - waterHistory
+        - sleepHistory
+        - streakHistory
+
+    ProgressPhoto:
+      type: object
+      properties:
+        id:
+          type: integer
+        userId:
+          type: integer
+        photoUrl:
+          type: string
+        note:
+          type: ["string", "null"]
+        createdAt:
+          type: string
+      required:
+        - id
+        - userId
+        - photoUrl
+        - createdAt
+
+    ProgressPhotoInput:
+      type: object
+      properties:
+        photoDataUrl:
+          type: string
+        note:
+          type: string
+      required:
+        - photoDataUrl
+
+    Achievement:
+      type: object
+      properties:
+        id:
+          type: integer
+        userId:
+          type: integer
+        type:
+          type: string
+        label:
+          type: string
+        description:
+          type: string
+        unlockedAt:
+          type: string
+      required:
+        - id
+        - userId
+        - type
+        - label
+        - description
+        - unlockedAt
+
+    AchievementsResponse:
+      type: object
+      properties:
+        unlocked:
+          type: array
+          items:
+            $ref: "#/components/schemas/Achievement"
+        locked:
+          type: array
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+              label:
+                type: string
+              description:
+                type: string
+            required: [type, label, description]
+      required:
+        - unlocked
+        - locked
+
+    DailyLog:
+      type: object
+      properties:
+        id:
+          type: integer
+        userId:
+          type: integer
+        date:
+          type: string
+        waterMl:
+          type: ["number", "null"]
+        sleepHours:
+          type: ["number", "null"]
+        createdAt:
+          type: string
+      required:
+        - id
+        - userId
+        - date
+        - createdAt
+
+    DailyLogInput:
+      type: object
+      properties:
+        waterMl:
+          type: number
+        sleepHours:
+          type: number
