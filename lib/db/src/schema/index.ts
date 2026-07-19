@@ -5,3 +5,5 @@ export * from "./progressPhotos";
 export * from "./achievements";
 export * from "./dailyLogs";
 export * from "./hairstyleAnalyses";
+export * from "./closetItems";
+export * from "./outfits";

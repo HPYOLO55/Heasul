@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, useLocation } from "wouter";
-import { Home, Camera, LineChart, Scissors, User, Sparkles } from "lucide-react";
+import { Home, Camera, LineChart, Scissors, User, Sparkles, Shirt } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
 import { useClerk } from "@clerk/react";
@@ -29,7 +29,7 @@ export function AppShell({ children }: AppShellProps) {
         {!isPublicRoute && (
           <nav className="fixed bottom-0 w-full max-w-[430px] glass-nav h-20 px-6 pb-safe flex items-center justify-between z-50 rounded-t-3xl">
             <NavItem href="/dashboard" icon={Home} label="Home" active={location === "/dashboard"} />
-            <NavItem href="/hairstyle" icon={Scissors} label="Hair" active={location === "/hairstyle"} />
+            <NavItem href="/closet" icon={Shirt} label="Closet" active={location === "/closet"} />
             
             {/* Center Camera Button */}
             <div className="relative -top-5">
@@ -43,7 +43,7 @@ export function AppShell({ children }: AppShellProps) {
               </Link>
             </div>
 
-            <NavItem href="/progress" icon={LineChart} label="Progress" active={location === "/progress"} />
+            <NavItem href="/hairstyle" icon={Scissors} label="Hair" active={location === "/hairstyle"} />
             <NavItem href="/profile" icon={User} label="Profile" active={location === "/profile"} />
           </nav>
         )}

@@ -8,6 +8,7 @@ import { QueryClient, QueryClientProvider, useQueryClient } from "@tanstack/reac
 import { AppShell } from "@/components/layout/AppShell";
 import LandingPage from "@/pages/landing";
 import DashboardPage from "@/pages/dashboard";
+import ClosetPage from "@/pages/closet";
 import CameraPage from "@/pages/camera";
 import ReportPage from "@/pages/report";
 import ProgressPage from "@/pages/progress";
@@ -176,6 +177,7 @@ function ClerkProviderWithRoutes() {
             
             {/* Protected Routes */}
             <Route path="/dashboard"><ProtectedRoute component={DashboardPage} /></Route>
+            <Route path="/closet"><ProtectedRoute component={ClosetPage} /></Route>
             <Route path="/camera"><ProtectedRoute component={CameraPage} /></Route>
             <Route path="/report/:id"><ProtectedRoute component={ReportPage} /></Route>
             <Route path="/progress"><ProtectedRoute component={ProgressPage} /></Route>

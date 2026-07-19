@@ -1,0 +1,467 @@
+Feature Name: AI Outfit Closet
+
+Objective
+
+Build a premium feature called AI Outfit Closet that lets users create a digital wardrobe by photographing their clothes. The AI should categorize garments, organize them, and generate outfit suggestions using only the items the user actually owns.
+
+This feature should feel like a luxury wardrobe assistant rather than a simple gallery.
+
+---
+
+UI Theme
+
+Use the same design system as the existing app.
+
+Style:
+
+- Premium
+- Minimal
+- Black background (#0B0B0F)
+- Glassmorphism cards
+- Rounded corners (20px)
+- Smooth animations
+- Blur effects
+- Soft gradients
+- Mobile-first design
+
+---
+
+Navigation
+
+Add a new tab:
+
+Closet
+
+Icon:
+Wardrobe / Hanger
+
+---
+
+Home Screen
+
+Display:
+
+My Closet
+
+Statistics Cards:
+
+Total Clothes
+
+Tops
+
+Bottoms
+
+Shoes
+
+Accessories
+
+Favorite Items
+
+Recently Added
+
+Button:
+
++ Add Clothing
+
+---
+
+Add Clothing
+
+Allow users to:
+
+Take Photo
+
+Upload Image
+
+Multiple Images
+
+Drag & Drop (desktop)
+
+Automatically compress images before upload.
+
+---
+
+AI Clothing Analysis
+
+Send the uploaded image to the vision model.
+
+Prompt:
+
+"You are a professional fashion stylist.
+
+Analyze this clothing item.
+
+Return ONLY valid JSON.
+
+{
+"name":"",
+"category":"",
+"subcategory":"",
+"primary_color":"",
+"secondary_colors":[],
+"pattern":"",
+"material":"",
+"season":"",
+"occasion":"",
+"style":"",
+"fit":"",
+"gender":"",
+"formality":"",
+"description":"",
+"confidence":""
+}
+
+Do not identify brands unless clearly visible.
+Do not invent details.
+Return only information supported by the image."
+
+---
+
+Automatic Categories
+
+Examples:
+
+T-Shirts
+
+Shirts
+
+Polo
+
+Hoodies
+
+Sweaters
+
+Jackets
+
+Jeans
+
+Chinos
+
+Cargo Pants
+
+Shorts
+
+Joggers
+
+Sneakers
+
+Formal Shoes
+
+Sandals
+
+Boots
+
+Watches
+
+Belts
+
+Caps
+
+Bags
+
+Accessories
+
+---
+
+Closet Organization
+
+Display items in beautiful cards.
+
+Each card shows:
+
+Image
+
+Name
+
+Category
+
+Primary Color
+
+Season
+
+Occasion
+
+Favorite Button
+
+Edit Button
+
+Delete Button
+
+---
+
+Search
+
+Allow searching by:
+
+Name
+
+Category
+
+Color
+
+Season
+
+Occasion
+
+Style
+
+Material
+
+---
+
+Smart Filters
+
+Examples:
+
+Casual
+
+Formal
+
+Party
+
+Gym
+
+Office
+
+Summer
+
+Winter
+
+Monochrome
+
+Streetwear
+
+Minimal
+
+Luxury
+
+Date Night
+
+Wedding
+
+Travel
+
+College
+
+---
+
+AI Outfit Generator
+
+User selects:
+
+Occasion
+
+Weather (optional)
+
+Preferred Colors (optional)
+
+The AI creates complete outfits using only clothes in the user's closet.
+
+Example Output:
+
+Top:
+Black Oversized T-Shirt
+
+Bottom:
+Grey Cargo Pants
+
+Shoes:
+White Sneakers
+
+Accessories:
+Silver Watch
+
+Reason:
+Balanced casual outfit with neutral colors.
+
+Return JSON.
+
+---
+
+Outfit Cards
+
+Each outfit card displays:
+
+Images
+
+Item Names
+
+Style Score
+
+Occasion
+
+Color Harmony
+
+Why it works
+
+Save Outfit Button
+
+Shuffle Outfit Button
+
+---
+
+Favorite Outfits
+
+Allow users to save outfits.
+
+Create collection:
+
+My Looks
+
+---
+
+Outfit Calendar
+
+Allow users to plan outfits by date.
+
+Example:
+
+Monday
+
+Office Outfit
+
+Tuesday
+
+Gym Outfit
+
+Friday
+
+Date Night
+
+---
+
+Recently Worn
+
+Track recently used outfits to reduce repetitive recommendations.
+
+---
+
+Missing Essentials
+
+Analyze the wardrobe.
+
+Recommend missing categories such as:
+
+"Consider adding a neutral white shirt for more versatile combinations."
+
+Focus on versatility rather than pushing purchases.
+
+---
+
+Wardrobe Insights
+
+Display:
+
+Most Worn Color
+
+Least Used Items
+
+Season Distribution
+
+Occasion Distribution
+
+Wardrobe Balance
+
+---
+
+Backend
+
+Create:
+
+Closet Collection
+
+Outfits Collection
+
+Favorites Collection
+
+Calendar Collection
+
+Image Upload API
+
+Vision Analysis API
+
+CRUD APIs
+
+Authentication middleware
+
+Validation
+
+Caching
+
+Pagination
+
+---
+
+Database Schema
+
+Closet
+
+- userId
+- image
+- category
+- subcategory
+- colors
+- material
+- season
+- occasion
+- style
+- fit
+- favorite
+- createdAt
+
+Outfits
+
+- userId
+- items[]
+- occasion
+- score
+- explanation
+- createdAt
+
+---
+
+Performance
+
+Compress uploaded images before sending to the AI.
+
+Cache analysis results for the same image during the session.
+
+Lazy-load closet images.
+
+Optimize image rendering for mobile.
+
+---
+
+Error Handling
+
+Display friendly messages for:
+
+Upload failed
+
+Analysis failed
+
+Unsupported image
+
+Network error
+
+Retry option
+
+---
+
+Deliverables
+
+Generate complete production-ready code for:
+
+- Frontend UI
+- Backend APIs
+- Database models
+- Vision API integration
+- Authentication checks
+- Responsive design
+- Clean modular architecture
+- Reusable components
+- Loading states
+- Error handling
+- Full CRUD functionality
+
+Ensure the feature integrates seamlessly with the existing app and maintains the same premium design language.
