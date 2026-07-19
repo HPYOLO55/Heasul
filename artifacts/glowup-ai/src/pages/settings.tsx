@@ -91,7 +91,7 @@ export default function SettingsPage() {
         </section>
 
         <div className="pt-8 text-center">
-          <p className="text-xs text-muted-foreground mb-1">GlowUp AI v1.0.0</p>
+          <p className="text-xs text-muted-foreground mb-1">Heapsal v1.0.0</p>
           <p className="text-[10px] text-muted-foreground/50">Made for your transformation</p>
         </div>
       </div>

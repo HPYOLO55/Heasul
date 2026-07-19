@@ -146,6 +146,86 @@ export async function analyzeImageWithNvidia(base64Image: string): Promise<Recor
   }
 }
 
+const HAIRSTYLE_PROMPT = `You are a professional hairstylist and grooming expert. Analyze the visible facial features and current hairstyle in this photo. Provide hairstyle suggestions only. Do not diagnose medical conditions or make any comments about attractiveness or health.
+
+Return ONLY valid JSON — no markdown, no explanation, just the raw JSON object:
+
+{
+  "face_shape": "",
+  "current_hairstyle": "",
+  "hair_length": "",
+  "hair_texture": "",
+  "recommended_styles": [
+    {
+      "name": "",
+      "why_it_matches": "",
+      "maintenance": "Low | Medium | High",
+      "styling_difficulty": "Easy | Moderate | Hard"
+    }
+  ],
+  "recommended_hair_lengths": [],
+  "recommended_parting": "",
+  "recommended_beard_style": "",
+  "haircare_tips": [],
+  "styling_products": [],
+  "confidence": ""
+}`;
+
+export async function analyzeHairstyleWithNvidia(base64Image: string): Promise<Record<string, unknown>> {
+  if (!NVIDIA_API_KEY) {
+    throw new Error("NVIDIA_API_KEY is not configured.");
+  }
+
+  const imageData = base64Image.includes(",") ? base64Image.split(",")[1] : base64Image;
+  const dataUrl = `data:image/jpeg;base64,${imageData}`;
+
+  const body = {
+    model: NVIDIA_VISION_MODEL,
+    messages: [
+      {
+        role: "user",
+        content: [
+          { type: "text", text: HAIRSTYLE_PROMPT },
+          { type: "image_url", image_url: { url: dataUrl } },
+        ],
+      },
+    ],
+    max_tokens: 2048,
+    temperature: 0.2,
+  };
+
+  const response = await fetch(`${NVIDIA_BASE_URL}/chat/completions`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${NVIDIA_API_KEY}`,
+    },
+    body: JSON.stringify(body),
+  });
+
+  if (!response.ok) {
+    const errorText = await response.text();
+    logger.error({ status: response.status, error: errorText }, "NVIDIA hairstyle API error");
+    throw new Error(`NVIDIA API error: ${response.status}`);
+  }
+
+  const data = await response.json() as {
+    choices?: Array<{ message?: { content?: string } }>;
+  };
+
+  const text = data?.choices?.[0]?.message?.content;
+  if (!text) throw new Error("Empty response from NVIDIA API");
+
+  const cleaned = text.replace(/^```(?:json)?\s*/i, "").replace(/\s*```$/i, "").trim();
+
+  try {
+    return JSON.parse(cleaned) as Record<string, unknown>;
+  } catch {
+    logger.error({ text }, "Failed to parse NVIDIA hairstyle JSON response");
+    throw new Error("Failed to parse hairstyle analysis response");
+  }
+}
+
 export function computeGlowScore(results: Record<string, unknown>): number {
   const score = results["overall_glow_score"];
   if (typeof score === "number") return score;

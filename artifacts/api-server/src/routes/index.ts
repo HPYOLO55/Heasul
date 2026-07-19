@@ -7,6 +7,7 @@ import missionsRouter from "./missions";
 import progressRouter from "./progress";
 import achievementsRouter from "./achievements";
 import dailyLogsRouter from "./dailyLogs";
+import hairstyleRouter from "./hairstyle";
 
 const router = Router();
 
@@ -18,5 +19,6 @@ router.use(missionsRouter);
 router.use(progressRouter);
 router.use(achievementsRouter);
 router.use(dailyLogsRouter);
+router.use(hairstyleRouter);
 
 export default router;

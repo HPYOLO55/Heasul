@@ -15,7 +15,7 @@ export default function LandingPage() {
       <header className="flex items-center justify-between p-6 relative z-10">
         <div className="flex items-center gap-2">
           <Sparkles className="w-6 h-6 text-primary" />
-          <span className="font-display font-bold text-xl tracking-tight">GlowUp AI</span>
+          <span className="font-display font-bold text-xl tracking-tight">Heapsal</span>
         </div>
         <Link href="/sign-in">
           <Button variant="ghost" className="text-sm font-medium">Log In</Button>
@@ -47,7 +47,7 @@ export default function LandingPage() {
           <div className="w-full flex flex-col gap-4">
             <Link href="/sign-up" className="w-full">
               <Button size="lg" className="w-full text-lg group h-14">
-                Start Your GlowUp
+                Start Your Heapsal
                 <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
               </Button>
             </Link>

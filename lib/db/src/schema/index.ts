@@ -4,3 +4,4 @@ export * from "./missions";
 export * from "./progressPhotos";
 export * from "./achievements";
 export * from "./dailyLogs";
+export * from "./hairstyleAnalyses";

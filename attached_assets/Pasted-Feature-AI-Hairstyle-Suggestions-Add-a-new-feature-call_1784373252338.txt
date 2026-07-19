@@ -1,0 +1,214 @@
+Feature: AI Hairstyle Suggestions
+
+Add a new feature called "AI Hairstyle Advisor" to the existing GlowUp AI app.
+
+Goal
+
+Allow users to upload or capture a selfie. The app should send the image to the Nemotron API and return personalized hairstyle recommendations based on visible facial features. The feature must not claim certainty or guarantee results. It should provide style suggestions only.
+
+---
+
+UI
+
+Create a new page named Hairstyle Advisor.
+
+Layout:
+
+- Premium dark theme matching the app
+- Large upload/camera button
+- Image preview
+- "Analyze Hairstyle" button
+- Loading animation while AI is processing
+- Beautiful result cards
+
+---
+
+Image Input
+
+Allow users to:
+
+- Capture a selfie
+- Upload an existing image
+
+Automatically:
+
+- Compress the image
+- Resize if needed
+- Show preview before analysis
+
+---
+
+Gemini Vision Integration
+
+Send the image to the Gemini Vision API.
+
+Use the following instruction:
+
+"You are a professional hairstylist.
+
+Analyze the visible facial features and current hairstyle.
+
+Provide hairstyle suggestions only.
+
+Do not diagnose medical conditions or estimate attractiveness.
+
+Return ONLY valid JSON.
+
+{
+"face_shape": "",
+"current_hairstyle": "",
+"hair_length": "",
+"hair_texture": "",
+"recommended_styles": [
+{
+"name": "",
+"why_it_matches": "",
+"maintenance": "Low | Medium | High",
+"styling_difficulty": "Easy | Moderate | Hard"
+}
+],
+"recommended_hair_lengths": [],
+"recommended_parting": "",
+"recommended_beard_style": "",
+"haircare_tips": [],
+"styling_products": [],
+"confidence": ""
+}"
+
+---
+
+Results Page
+
+Display:
+
+Face Shape
+
+Beautiful icon
+
+Face shape name
+
+Short explanation
+
+---
+
+Current Hairstyle
+
+Display AI description.
+
+---
+
+Best Hairstyles
+
+Premium cards.
+
+Each card contains:
+
+- Hairstyle Name
+- Why it suits the user
+- Maintenance level
+- Styling difficulty
+
+---
+
+Hair Length Suggestions
+
+Display chips:
+
+Short
+
+Medium
+
+Long
+
+Buzz Cut
+
+Textured Crop
+
+Crew Cut
+
+Curtains
+
+Side Part
+
+Quiff
+
+Pompadour
+
+French Crop
+
+Undercut
+
+(Show only the styles recommended by the AI.)
+
+---
+
+Hair Parting
+
+Display recommendation.
+
+Example:
+
+Middle Part
+
+Side Part
+
+No Part
+
+---
+
+Beard Suggestions
+
+If applicable, display:
+
+- Clean Shave
+- Stubble
+- Short Beard
+- Full Beard
+
+Otherwise show:
+
+"Not applicable."
+
+---
+
+Haircare Tips
+
+Display each tip in a checklist card.
+
+Examples:
+
+Use conditioner regularly.
+
+Avoid excessive heat styling.
+
+Trim every 4–6 weeks.
+
+---
+
+Save Result
+
+Allow the user to save hairstyle analyses to their profile history.
+
+---
+
+Backend
+
+Create:
+
+- Hairstyle analysis API endpoint
+- Gemini Vision service
+- Validation
+- Error handling
+- Loading state
+- Rate limiting
+- Secure API key usage
+
+---
+
+Performance
+
+- Compress uploaded images before sending.
+- Cache previous analysis for the same uploaded image during the session.
+- Show clear loading and error states.
+
+Generate complete production-ready frontend, backend, API integration, and UI components with clean, modular code that matches the existing app.

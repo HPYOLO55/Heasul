@@ -12,6 +12,7 @@ import CameraPage from "@/pages/camera";
 import ReportPage from "@/pages/report";
 import ProgressPage from "@/pages/progress";
 import RoutinePage from "@/pages/routine";
+import HairstylePage from "@/pages/hairstyle";
 import MissionsPage from "@/pages/missions";
 import AchievementsPage from "@/pages/achievements";
 import ProfilePage from "@/pages/profile";
@@ -179,6 +180,7 @@ function ClerkProviderWithRoutes() {
             <Route path="/report/:id"><ProtectedRoute component={ReportPage} /></Route>
             <Route path="/progress"><ProtectedRoute component={ProgressPage} /></Route>
             <Route path="/routine"><ProtectedRoute component={RoutinePage} /></Route>
+            <Route path="/hairstyle"><ProtectedRoute component={HairstylePage} /></Route>
             <Route path="/missions"><ProtectedRoute component={MissionsPage} /></Route>
             <Route path="/achievements"><ProtectedRoute component={AchievementsPage} /></Route>
             <Route path="/profile"><ProtectedRoute component={ProfilePage} /></Route>
