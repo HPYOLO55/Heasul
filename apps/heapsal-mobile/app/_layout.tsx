@@ -1,25 +1,26 @@
-import { Stack } from "expo-router";
-import { StatusBar } from "expo-status-bar";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { SafeAreaProvider } from "react-native-safe-area-context";
-import { StyleSheet, View } from "react-native";
+import { ClerkProvider, SignedIn, SignedOut, SignIn, SignUp } from "@clerk/clerk-expo";
+import { Stack, Redirect, useSegments } from "expo-router";
+import { tokenCache } from "../src/auth/token-cache";
+import { ActivityIndicator, StyleSheet, View } from "react-native";
 
-const queryClient = new QueryClient();
+const publishableKey = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY;
 
 export default function RootLayout() {
-  return (
-    <SafeAreaProvider>
-      <QueryClientProvider client={queryClient}>
-        <View style={styles.root}>
-          <StatusBar style="light" />
-          <Stack screenOptions={{ headerShown: false, contentStyle: styles.content }} />
-        </View>
-      </QueryClientProvider>
-    </SafeAreaProvider>
-  );
+  if (!publishableKey) {
+    return <View style={styles.center}><ActivityIndicator color="#F5C542" /></View>;
+  }
+  return <ClerkProvider publishableKey={publishableKey} tokenCache={tokenCache}><AuthNavigator /></ClerkProvider>;
 }
 
-const styles = StyleSheet.create({
-  root: { flex: 1, backgroundColor: "#0D0D0D" },
-  content: { backgroundColor: "#0D0D0D" }
-});
+function AuthNavigator() {
+  const segments = useSegments();
+  const inAuth = segments[0] === "auth";
+  return <>
+    <SignedIn><Stack screenOptions={{ headerShown: false }} /></SignedIn>
+    <SignedOut>{inAuth ? <Stack screenOptions={{ headerShown: false }} /> : <Redirect href="/auth/sign-in" />}</SignedOut>
+  </>;
+}
+
+export function SignInScreen() { return <SignIn />; }
+export function SignUpScreen() { return <SignUp />; }
+const styles = StyleSheet.create({ center: { flex: 1, backgroundColor: "#0D0D0D", alignItems: "center", justifyContent: "center" } });
