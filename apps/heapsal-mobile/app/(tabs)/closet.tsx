@@ -1,0 +1,3 @@
+import { StyleSheet, Text, View } from "react-native";
+export default function Placeholder({ title = "Coming soon" }: { title?: string }) { return <View style={styles.container}><Text style={styles.title}>{title}</Text><Text style={styles.text}>This native screen is being migrated from the web app while preserving the Heapsal visual design.</Text></View>; }
+const styles = StyleSheet.create({ container: { flex: 1, backgroundColor: "#0D0D0D", alignItems: "center", justifyContent: "center", padding: 28 }, title: { color: "#F5C542", fontSize: 24, fontWeight: "800", marginBottom: 12 }, text: { color: "#A0A0A0", textAlign: "center", lineHeight: 22 } });

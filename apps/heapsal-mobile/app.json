@@ -1,0 +1,20 @@
+{
+  "expo": {
+    "name": "heapsal",
+    "slug": "heapsal",
+    "version": "1.0.0",
+    "scheme": "heapsal",
+    "orientation": "portrait",
+    "userInterfaceStyle": "dark",
+    "android": {
+      "package": "com.heapsal.app",
+      "versionCode": 1,
+      "permissions": ["CAMERA", "READ_MEDIA_IMAGES"]
+    },
+    "plugins": [
+      "expo-router",
+      ["expo-camera", {"cameraPermission": "Allow heapsal to use your camera for AI analysis."}],
+      ["expo-image-picker", {"photosPermission": "Allow heapsal to select photos for AI analysis."}]
+    ]
+  }
+}
